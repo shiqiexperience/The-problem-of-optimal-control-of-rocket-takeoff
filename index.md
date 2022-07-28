@@ -1,37 +1,60 @@
-## Welcome to GitHub Pages
+# «Задача оптимального управления взлетом ракеты»
+## Постановка задачи
+ В данной задаче ракета движется вдоль вертикальной прямой,т.е.Расстояние, которое она преодолела, совпадает с высотой, на которую она поднялась.Сначала ракета летит от земли вдоль вертикальной прямой. 
+ 
+Пусть 
+- $t$  —— время, 
+- $h(t)$ —— высота ракеты над поверхностью земли, зависящая от t, 
+- $v(t)$ —— скорость ракеты, зависящая от t, 
+- $m(t)$ —— полная масса ракеты, зависящая от t, 
+- $u(t)$ —— управление, зависящая от $t$.Здесь 
+- $u(t)$ —— это скорость сгорания топлива,где $0\le u(t)\le u_{max}, 
+- $u_{max}$ —— это фиксированное значение,если $u$ достигает $u_{max}$,значит что скорость, с которой ракета расходует топливо, достигает своего максимального значения, Комбинируя формулу кинематики и формулу для уменьшения массы сгорания топлива, можно получить следующее уравнения:
+ 
+<div align=center>$\dot{h} \left (  t\right ) = v(t)$
 
-You can use the [editor on GitHub](https://github.com/shiqiexperience/The-problem-of-optimal-control-of-rocket-takeoff/edit/gh-pages/index.md) to maintain and preview the content for your website in Markdown files.
+$\dot{m} \left (  t\right ) = -r(t)$</div>
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+Когда летит ракета, $h$ увеличивается, и масса уменьшается из-за сгорания топлива, скорость v может увеличиваться или уменьшаться. Далее анализируем силы и ускорение, действующие на ракету:
 
-### Markdown
+![](./images/1.png)
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
+Любой объект обладает силой тяжести. При сгорании топлива ракета летит вверхза счет тяги двигателей, но сопротивление воздуха не позволяет ей двигаться вверх слишком быстро проанализировав силы, действующие на ракету, можно получить уравнение по вто- рому закону Ньютона.
 
-```markdown
-Syntax highlighted code block
+<div align=center>$m(t)\dot{v}(t)=-m(t)g+u_{0}r(t)-\rho e^{-kh(t)}v^{2}(t)$</div>
 
-# Header 1
-## Header 2
-### Header 3
+ Где:    
+- $\dot{v}(t)$ —— **ускорение ракета**,
 
-- Bulleted
-- List
+- $h(t)$ —— **высота ракеты над поверхностью земли,зависящая от $t$,**
+       
+- $v(t)$ —— **скорость ракеты, зависящая от $t$,**
+         
+- $m(t)$—— **полная масса ракеты, зависящая от $t$,**
+         
+- $r(t)$ ——  **скорость сгорания топлива,**
+         
+- $g$ —— **Ускорение силы тяжести,**
+         
+- $u_{0}$ —— **заданные константы**
 
-1. Numbered
-2. List
+Если уравнение обе часть делится на $m(t)$ то получится новое уравнение
 
-**Bold** and _Italic_ and `Code` text
+<div align=center>$\dot{v}(t)=-g+\frac{u_{0}r(t) }{m(t)}- \frac{\rho e^{-kh(t)}v^{2}(t)  }{m(t)}$</div>
 
-[Link](url) and ![Image](src)
-```
 
-For more details see [Basic writing and formatting syntax](https://docs.github.com/en/github/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax).
+Наконец,ракет достигает данной высоте $H1$ и скорости
+$V1$,время $t$ не известно,обозначаться его $T$.
+![](./images/2.png)
 
-### Jekyll Themes
+Для того,чтобы расход топлива сведен к минимуму в течение всего процесса взлета ракеты,надо брать оптимальное управление в каждом моменте,Затем, когда ракета достигает заданной высоты и скорости, остается как можно больше топлива.
 
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/shiqiexperience/The-problem-of-optimal-control-of-rocket-takeoff/settings/pages). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
+T.е.в данной задаче,надо выбрать оптимальное управление u в каждом моменте,чтобы остаться как можно больше топлива в времени $T$. Т.е. $m(T)->max$
 
-### Support or Contact
-
-Having trouble with Pages? Check out our [documentation](https://docs.github.com/categories/github-pages-basics/) or [contact support](https://support.github.com/contact) and we’ll help you sort it out.
+# Заключение
+В данной работе решается задача оптимального управления при использовании принципа максимума понтрягина и численного меиода,и даётся При исследовании были получены следующие результаты:
+- применен принцип максимума и записана краевая задача.
+- Некоторые краевые задачи можно переписать в формуле задачи Коши,и решать по методом Эйлера.
+- В процессе взлета ракеты,для оптимального управления,сначала u посталено $u_{max}$ и до некоторого времени u поставлено 0,и время зависит от точность разбиения $\phi$ и $\psi$ и dt,которые влияют на начальные условия.
+- Когда точность разбиения $\psi$ и $\phi$ достигает определенного уровня, максимальная масса, а также высота и скорость, достигнутые за соответствующее время, не влияются.
+- Для точности разбиения $dt$,чем точнее разбиение,тем решение точнее и лучше.
